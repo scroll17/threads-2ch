@@ -1,12 +1,32 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import { getActualThreads } from './utils/getActualThreads';
 
-function App() {
-  return (
-    <div>
+class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            threads: {}
+        }
+    }
 
-    </div>
-  );
+    render(){
+        const { threads } = this.state;
+        console.log('threads: ', threads);
+        return(
+            <div>
+                Threads:
+
+            </div>
+        )
+    }
+
+    async componentDidMount(){
+        const threads = await getActualThreads();
+        this.setState({
+            threads
+        })
+    }
 }
+
 
 export default App;
