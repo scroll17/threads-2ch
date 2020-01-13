@@ -1,12 +1,31 @@
-export default async function(url, errorMessage = 'Failed load data'){
-    const proxy = "https://cors-anywhere.herokuapp.com/";
+import axios from 'axios';
+export default async function(url, 
+        config = {
+            url: false, 
+            proxy: false
+        }, 
+        errorMessage = 'Failed load data'
+    ){
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const proxy = {
+        proxy: {
+            host: '104.236.174.88',
+            port: 3128
+          }
+    };
+
     try{
-        let response = await fetch(proxy + url, {
-            method: 'GET'
-        });
-        if(response.ok){
-            return await response.json();
+        const requestUrl = config.url ? proxyUrl + url : url;
+        const requestObj = config.proxy ? 
+                Object.assign({}, proxy, { crossdomain: true }) 
+                : 
+                { crossdomain: true };
+
+        let response = await axios.get(requestUrl,  requestObj);
+        if(response.status === 200){
+            return response.data;
         }else{
+            console.log('Error fetch : ', response);
             throw new Error({
                 status: response.status,
                 message: errorMessage

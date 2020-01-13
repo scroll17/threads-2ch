@@ -21,10 +21,14 @@ class App extends Component {
     }
 
     async componentDidMount(){
-        const threads = await getActualThreads();
-        this.setState({
-            threads
-        })
+        try{
+            const threads = await getActualThreads();
+            this.setState({
+                threads
+            })
+        }catch(e){
+            console.warn("Error: ", e)
+        }
     }
 }
 
