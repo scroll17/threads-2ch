@@ -2,10 +2,11 @@ import timeConverter from './timeConverter';
 import getGroupThread from './getGroupThread';
 import fetchByUrl from './fetchByUrl';
 
-export async function getActualThreads(url = 'https://2ch.hk/b/threads.json', limit = 30){
+export async function getActualThreads(url, limit = 30, customUrl){
+    const defaultUrl = url ? 'https://2ch.hk/b/threads.json' : customUrl;
     try {
         const response = await fetchByUrl(
-            url, 
+            defaultUrl, 
             { url: true },
             'Failed load Threads'
         )

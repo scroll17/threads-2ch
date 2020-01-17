@@ -28,7 +28,7 @@ class App extends Component {
 
     async componentDidMount(){
         try{
-            const threads = await getActualThreads('https://2ch.hk/b/threads.json', 5);
+            const threads = await getActualThreads(true, 5);
             this.setState({
                 threads
             })
